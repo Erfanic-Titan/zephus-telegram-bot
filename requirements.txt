@@ -1,0 +1,11 @@
+pyrogram
+tgcrypto
+pymysql
+python-telegram-bot
+google-generativeai
+Pillow
+pytesseract
+moviepy
+SpeechRecognition
+pydub
+PyMuPDF
