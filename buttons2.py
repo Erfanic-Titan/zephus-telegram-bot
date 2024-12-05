@@ -38,7 +38,31 @@ def create_keyboard(language_code, keyboards_type):
                 InlineKeyboardButton(languages[language_code]['account'], callback_data='account'),
                 InlineKeyboardButton(languages[language_code]['setting'], callback_data='setting')
             ],
-            [InlineKeyboardButton(languages[language_code]['back'], callback_data='back-menu-for-else')]
+            [InlineKeyboardButton(languages[language_code]['back'], callback_data='back-menu-for-else')],
+        ])
+
+    if keyboards_type == 'artificial-intelligence':
+        return InlineKeyboardMarkup([
+            [InlineKeyboardButton(languages[language_code]['ai-new-chat'], callback_data='artificial_intelligence_new_chat')],
+            [InlineKeyboardButton(languages[language_code]['ai-previous-chats'], callback_data='artificial_intelligence_select_chat')],
+            [InlineKeyboardButton(languages[language_code]['back'], callback_data='tools')]
+        ])
+        
+    elif keyboards_type == 'ai-chat-management':
+        keyboard = InlineKeyboardMarkup([
+            [
+                InlineKeyboardButton(languages[language_code]['ai-rename-chat'], callback_data='rename_chat'),
+                InlineKeyboardButton(languages[language_code]['ai-delete-chat'], callback_data='delete_chat')
+            ],
+            [InlineKeyboardButton(languages[language_code]['back'], callback_data='select_chat')]
+        ])
+
+    elif keyboards_type == 'ai-confirm-delete':
+        keyboard = InlineKeyboardMarkup([
+            [
+                InlineKeyboardButton("✅", callback_data='confirm_delete'),
+                InlineKeyboardButton("❌", callback_data='select_chat')
+            ]
         ])
 
     elif keyboards_type == 'orders':
@@ -169,30 +193,5 @@ def create_keyboard(language_code, keyboards_type):
             ]
         ])
 
-#ai
-def create_keyboard(language_code, keyboards_type):
-    if keyboards_type == 'artificial-intelligence':
-        keyboard = InlineKeyboardMarkup([
-            [InlineKeyboardButton(languages[language_code]['ai-new-chat'], callback_data='new_chat')],
-            [InlineKeyboardButton(languages[language_code]['ai-previous-chats'], callback_data='select_chat')],
-            [InlineKeyboardButton(languages[language_code]['back'], callback_data='tools')]
-        ])
-        
-    elif keyboards_type == 'ai-chat-management':
-        keyboard = InlineKeyboardMarkup([
-            [
-                InlineKeyboardButton(languages[language_code]['ai-rename-chat'], callback_data='rename_chat'),
-                InlineKeyboardButton(languages[language_code]['ai-delete-chat'], callback_data='delete_chat')
-            ],
-            [InlineKeyboardButton(languages[language_code]['back'], callback_data='select_chat')]
-        ])
-
-    elif keyboards_type == 'ai-confirm-delete':
-        keyboard = InlineKeyboardMarkup([
-            [
-                InlineKeyboardButton("✅", callback_data='confirm_delete'),
-                InlineKeyboardButton("❌", callback_data='select_chat')
-            ]
-        ])
 
     return keyboard
