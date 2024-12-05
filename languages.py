@@ -61,7 +61,17 @@ And secondly, we are happy for you to join the Zephus Union to use our tools⚙
   'voice-text-converter': '🗣Voice and Text Converter',
   'movie-series-downloader': '🎬Movie and Series Downloader',
   'book-article-downloader': '📚Book and Article Downloader',
-  'artificial-intelligence': '🤖Artificial Intelligence'
+
+  #ai-en
+  'artificial-intelligence': '🤖Artificial Intelligence',
+  'ai-start': "Welcome to AI Assistant! 🤖\n\nI'm powered by Google Gemini 1.5 Flash and ready to help you.\nYou can start a new chat or continue from previous ones.",
+        'ai-new-chat': "Start a new chat ➕",
+        'ai-previous-chats': "Previous chats 💬",
+        'ai-chat-created': "New chat created! You can ask your question now.",
+        'ai-rename-chat': "Rename chat ✏️",
+        'ai-delete-chat': "Delete chat 🗑",
+        'ai-confirm-delete': "Are you sure you want to delete this chat?",
+        'ai-select-chat': "Please select a chat to continue:"
 },
 'fa' : {
 'select-language' : "شما زبان فارسی را انتخاب کردید.",
@@ -273,5 +283,16 @@ Yourname@gmail.com
 'movie-series-downloader': '🎬دانلودر فیلم و سریال',
 'book-article-downloader': '📚دانلود کتاب و مقالات',
 'artificial-intelligence': '🤖هوش مصنوعی',
+
+
+#ai-fa
+'ai-start': "به دستیار هوش مصنوعی خوش آمدید! 🤖\n\nمن با استفاده از Google Gemini 1.5 Flash آماده کمک به شما هستم.\nمی‌توانید یک چت جدید شروع کنید یا از چت‌های قبلی ادامه دهید.",
+        'ai-new-chat': "شروع چت جدید ➕",
+        'ai-previous-chats': "چت‌های قبلی 💬",
+        'ai-chat-created': "چت جدید ایجاد شد! می‌توانید سوال خود را بپرسید.",
+        'ai-rename-chat': "تغییر نام چت ✏️",
+        'ai-delete-chat': "حذف چت 🗑",
+        'ai-confirm-delete': "آیا از حذف این چت اطمینان دارید؟",
+        'ai-select-chat': "لطفاً یک چت را برای ادامه انتخاب کنید:"
 }
 }
