@@ -16,7 +16,7 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 # پیکربندی API جمنای
-genai.configure(api_key="YOUR_API_KEY")
+genai.configure(api_key="AIzaSyAHHkMQa9h_-tbBmyY9qt0v4D14-vgOdHQ")
 model = genai.GenerativeModel("gemini-1.5-flash")
 
 active_chats = {}
@@ -253,6 +253,20 @@ async def handle_photo(update: Update, context: CallbackContext):
     except Exception as e:
         logger.error(f"خطا در پردازش تصویر: {str(e)}")
         await update.message.reply_text("😕 متأسفانه خطایی رخ داد.")
+
+async def button_handler(update: Update, context: CallbackContext):
+    query = update.callback_query
+    user_id = query.from_user.id
+    
+    it_is_true_exists, chat_id, first_name, last_name, user_name, language_code = check_for_existence_in_the_database(user_id)
+    if not language_code:
+        language_code = 'en'
+
+    if query.data == "artificial_intelligence_new_chat":
+        chat_id = db4.create_new_ai_chat(user_id, f"چت {datetime.now().strftime('%Y-%m-%d %H:%M')}")
+        active_chats[user_id] = chat_id
+        await query.edit_message_text(languages[language_code]['ai-chat-created'])
+
 
 def register_handlers(application: Application):
     application.add_handler(CommandHandler('ai', start_ai_chat))
