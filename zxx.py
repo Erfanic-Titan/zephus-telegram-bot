@@ -14,9 +14,9 @@ from telegram.ext import Application
 logger = logging.getLogger(__name__)
 
 # env
-bot_token = os.environ.get("TOKEN", "8061997306:AAHptuoOIUD19MszIqtVhdwSZz_NbtKLj8Q") 
-api_hash = os.environ.get("HASH", "a7d65ff251cb1c8cf51f3ca1b90b5a0a") 
-api_id = os.environ.get("ID", "25791738")
+bot_token = os.environ.get("TOKEN", "8") 
+api_hash = os.environ.get("HASH", "a") 
+api_id = os.environ.get("ID", "2")
 
 # bot
 app = Client("my_bot", api_id=api_id, api_hash=api_hash, bot_token=bot_token)
