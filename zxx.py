@@ -14,9 +14,9 @@ from telegram.ext import Application
 logger = logging.getLogger(__name__)
 
 # env
-bot_token = os.environ.get("TOKEN", "8") 
-api_hash = os.environ.get("HASH", "a") 
-api_id = os.environ.get("ID", "2")
+bot_token = os.environ.get("TOKEN", "8061997306:AAHptuoOIUD19MszIqtVhdwSZz_NbtKLj8Q") 
+api_hash = os.environ.get("HASH", "a7d65ff251cb1c8cf51f3ca1b90b5a0a") 
+api_id = os.environ.get("ID", "25791738")
 
 # bot
 app = Client("my_bot", api_id=api_id, api_hash=api_hash, bot_token=bot_token)
@@ -206,6 +206,11 @@ def handle_callback_query_for_select_language(client, callback_query):
     if data == 'back-home':
         keyboards = create_keyboard(language_code,f'{data}')
         callback_query.edit_message_text(text=languages[language_code]['welcome-send-text'], reply_markup=keyboards)
+
+    #ai
+    if data == 'artificial-intelligence':
+        keyboards = create_keyboard(language_code, 'artificial-intelligence')
+        callback_query.edit_message_text(text=languages[language_code]['ai-start'], reply_markup=keyboards)
         
         
 
@@ -303,10 +308,11 @@ def handle_contact(client, message):
 	message.reply_text(languages[language_code]['deleted-keyboard-send-phone'], reply_markup=remove_keyboard)
 
 
-def main():
-    # راه‌اندازی هر دو اپلیکیشن
-    telegram_app.run_polling(close_loop=False)  # اجرای async
-    app.run()  # اجرای sync
-
-if __name__ == '__main__':
-    main()
+async def main():
+    # راه‌اندازی تلگرام بات اصلی
+    app.start()
+    # راه‌اندازی تلگرام بات AI
+    await telegram_app.initialize()
+    await telegram_app.start()
+    await telegram_app.run_polling()
+    await app.stop()
