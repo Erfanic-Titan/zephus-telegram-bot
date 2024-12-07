@@ -61,8 +61,25 @@ And secondly, we are happy for you to join the Zephus Union to use our tools⚙
   'voice-text-converter': '🗣Voice and Text Converter',
   'movie-series-downloader': '🎬Movie and Series Downloader',
   'book-article-downloader': '📚Book and Article Downloader',
-  'artificial-intelligence': '🤖Artificial Intelligence'
+  'artificial-intelligence': '🤖Artificial Intelligence',
+
+  # متون مربوط به هوش مصنوعی
+    'ai-new-chat': 'New Chat 💭',
+    'ai-select-chat': 'Previous Chats 📜',
+    'ai-rename-chat': 'Rename Chat ✏️',
+    'ai-delete-chat': 'Delete Chat 🗑️',
+    'ai-confirm-delete': 'Are you sure you want to delete this chat?',
+    'ai-chat-deleted': 'Chat deleted successfully',
+    'ai-enter-new-name': 'Please enter a new name for the chat:',
+    'ai-chat-renamed': 'Chat renamed successfully',
+    'ai-welcome': 'Hello! 👋\n\nI am an AI assistant powered by Google Gemini 1.5 Flash.\nYou can start a new chat or continue from your previous chats.',
+    'ai-processing': '⌛ Processing...',
+    'ai-thinking': '🤔 Thinking...',
+    'ai-error': '😕 Sorry, an error occurred.',
+    'ai-select-chat-first': 'Please select a chat first.',
+    'ai-no-chats': 'You don\'t have any chats yet. You can start a new chat.',
 },
+
 'fa' : {
 'select-language' : "شما زبان فارسی را انتخاب کردید.",
 'select-default' : 'شما زبان پیش‌فرض را انتخاب کردید.',
@@ -273,5 +290,20 @@ Yourname@gmail.com
 'movie-series-downloader': '🎬دانلودر فیلم و سریال',
 'book-article-downloader': '📚دانلود کتاب و مقالات',
 'artificial-intelligence': '🤖هوش مصنوعی',
+# متون مربوط به هوش مصنوعی
+    'ai-new-chat': 'چت جدید 💭',
+    'ai-select-chat': 'چت‌های قبلی 📜',
+    'ai-rename-chat': 'تغییر نام چت ✏️',
+    'ai-delete-chat': 'حذف چت 🗑️',
+    'ai-confirm-delete': 'آیا از حذف این چت اطمینان دارید؟',
+    'ai-chat-deleted': 'چت با موفقیت حذف شد',
+    'ai-enter-new-name': 'لطفاً نام جدید چت را وارد کنید:',
+    'ai-chat-renamed': 'نام چت با موفقیت تغییر کرد',
+    'ai-welcome': 'سلام! 👋\n\nمن یک دستیار هوش مصنوعی هستم که با کمک Google Gemini 1.5 Flash به سؤالات شما پاسخ می‌دهم.\nمی‌توانید یک چت جدید شروع کنید یا از چت‌های قبلی خود ادامه دهید.',
+    'ai-processing': '⌛ در حال پردازش...',
+    'ai-thinking': '🤔 در حال فکر کردن...',
+    'ai-error': '😕 متأسفانه خطایی رخ داد.',
+    'ai-select-chat-first': 'لطفا ابتدا یک چت را انتخاب کنید.',
+    'ai-no-chats': 'شما هنوز چتی ندارید. می‌توانید یک چت جدید شروع کنید.',
 }
 }
