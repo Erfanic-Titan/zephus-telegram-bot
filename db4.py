@@ -13,138 +13,45 @@ def database_create_connection():
 	
 	
 def database_create_tables():
-    conn_create_table = database_create_connection()
-    cursor = conn_create_table.cursor()
-    
-    # جدول users موجود
-    cursor.execute("SHOW TABLES LIKE 'users'")
-    results_db = cursor.fetchone()
-    
-    if not results_db:
-        cursor.execute('''
-        CREATE TABLE IF NOT EXISTS users (
-            ID INT AUTO_INCREMENT PRIMARY KEY,
-            Chat_Id BIGINT,
-            Language_Code VARCHAR(10),
-            First_Name VARCHAR(50),
-            Last_Name VARCHAR(50),
-            User_Name VARCHAR(50),
-            Phone_Number VARCHAR(15),
-            Country_Code_for_Phone_Number VARCHAR(5),
-            Email VARCHAR(100),
-            Account_Activity_Status ENUM('active', 'inactive', 'suspended'),
-            Login_Date DATE,
-            Login_Time TIME,
-            General_User_Name VARCHAR(50),
-            Password VARCHAR(255),
-            Total_Payment_Links INT DEFAULT 0,
-            Total_Referral_Links INT DEFAULT 0,
-            Total_Purchase_Links_v2 INT DEFAULT 0,
-            Total_Downloadrs_Links INT DEFAULT 0,
-            Total_File_Conversion_Links INT DEFAULT 0,
-            Total_Free_Links_v2 INT DEFAULT 0,
-            Total_Group_Links INT DEFAULT 0,
-            Total_Channel_Links INT DEFAULT 0,
-            Total_Follower_IDs INT DEFAULT 0,
-            Total_Member_IDs INT DEFAULT 0
-        )
-        ''')
-
-    # جدول جدید ai_chats
-    cursor.execute("SHOW TABLES LIKE 'ai_chats'")
-    if not cursor.fetchone():
-        cursor.execute('''
-        CREATE TABLE IF NOT EXISTS ai_chats (
-            chat_id INT AUTO_INCREMENT PRIMARY KEY,
-            user_id BIGINT,
-            title VARCHAR(255),
-            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-            FOREIGN KEY (user_id) REFERENCES users(Chat_Id)
-        )
-        ''')
-
-    # جدول جدید ai_messages
-    cursor.execute("SHOW TABLES LIKE 'ai_messages'")
-    if not cursor.fetchone():
-        cursor.execute('''
-        CREATE TABLE IF NOT EXISTS ai_messages (
-            message_id INT AUTO_INCREMENT PRIMARY KEY,
-            chat_id INT,
-            role VARCHAR(50),
-            content TEXT,
-            timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-            FOREIGN KEY (chat_id) REFERENCES ai_chats(chat_id)
-        )
-        ''')
-        
-    conn_create_table.commit()
-    conn_create_table.close()
-
-# توابع مدیریت چت‌های هوش مصنوعی
-def create_new_ai_chat(user_id, title):
-    conn = database_create_connection()
-    cursor = conn.cursor()
-    cursor.execute(
-        'INSERT INTO ai_chats (user_id, title) VALUES (%s, %s)',
-        (user_id, title)
-    )
-    chat_id = cursor.lastrowid
-    conn.commit()
-    conn.close()
-    return chat_id
-
-def rename_ai_chat(chat_id, new_title):
-    conn = database_create_connection()
-    cursor = conn.cursor()
-    cursor.execute(
-        'UPDATE ai_chats SET title = %s WHERE chat_id = %s',
-        (new_title, chat_id)
-    )
-    conn.commit()
-    conn.close()
-
-def delete_ai_chat(chat_id):
-    conn = database_create_connection()
-    cursor = conn.cursor()
-    # حذف پیام‌های چت
-    cursor.execute('DELETE FROM ai_messages WHERE chat_id = %s', (chat_id,))
-    # حذف خود چت
-    cursor.execute('DELETE FROM ai_chats WHERE chat_id = %s', (chat_id,))
-    conn.commit()
-    conn.close()
-
-def get_user_ai_chats(user_id):
-    conn = database_create_connection()
-    cursor = conn.cursor()
-    cursor.execute(
-        'SELECT chat_id, title FROM ai_chats WHERE user_id = %s ORDER BY created_at DESC',
-        (user_id,)
-    )
-    chats = cursor.fetchall()
-    conn.close()
-    return chats
-
-def add_ai_message(chat_id, role, content):
-    conn = database_create_connection()
-    cursor = conn.cursor()
-    cursor.execute(
-        'INSERT INTO ai_messages (chat_id, role, content) VALUES (%s, %s, %s)',
-        (chat_id, role, content)
-    )
-    conn.commit()
-    conn.close()
-
-def get_ai_chat_history(chat_id):
-    conn = database_create_connection()
-    cursor = conn.cursor()
-    cursor.execute(
-        'SELECT role, content FROM ai_messages WHERE chat_id = %s ORDER BY timestamp',
-        (chat_id,)
-    )
-    messages = cursor.fetchall()
-    conn.close()
-    return messages
-
+	conn_create_table = database_create_connection()
+	cursor = conn_create_table.cursor()
+	
+	cursor.execute("SHOW TABLES LIKE 'users'")
+	results_db = cursor.fetchone()
+	
+	if not results_db:
+		print('ok create tables')
+		cursor.execute('''
+		CREATE TABLE IF NOT EXISTS users (
+        ID INT AUTO_INCREMENT PRIMARY KEY,
+        Chat_Id BIGINT,
+        Language_Code VARCHAR(10),
+        First_Name VARCHAR(50),
+        Last_Name VARCHAR(50),
+        User_Name VARCHAR(50),
+        Phone_Number VARCHAR(15),
+        Country_Code_for_Phone_Number VARCHAR(5),
+        Email VARCHAR(100),
+        Account_Activity_Status ENUM('active', 'inactive', 'suspended'),
+        Login_Date DATE,
+        Login_Time TIME,
+        General_User_Name VARCHAR(50),
+        Password VARCHAR(255),
+        Total_Payment_Links INT DEFAULT 0,
+        Total_Referral_Links INT DEFAULT 0,
+        Total_Purchase_Links_v2 INT DEFAULT 0,
+        Total_Downloadrs_Links INT DEFAULT 0,
+        Total_File_Conversion_Links INT DEFAULT 0,
+        Total_Free_Links_v2 INT DEFAULT 0,
+        Total_Group_Links INT DEFAULT 0,
+        Total_Channel_Links INT DEFAULT 0,
+        Total_Follower_IDs INT DEFAULT 0,
+        Total_Member_IDs INT DEFAULT 0
+	    )
+		''')
+	conn_create_table.commit()
+	conn_create_table.close()
+	
 database_create_tables()
 #print('not ok')
 	
