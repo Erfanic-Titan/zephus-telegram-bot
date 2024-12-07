@@ -2,49 +2,20 @@ from pyrogram import Client, filters, enums
 from pyrogram.types import ReplyKeyboardRemove
 from buttons2 import *
 from languages import *
-from tools.ai_studio import register_handlers
 import os
 from db4 import *
 import time
 import re
-import logging
-from telegram.ext import Application
-
-#log
-logger = logging.getLogger(__name__)
 
 # env
-bot_token = os.environ.get("TOKEN", "8061997306:AAHptuoOIUD19MszIqtVhdwSZz_NbtKLj8Q") 
+bot_token = os.environ.get("TOKEN", "7752567428:AAGtdwtAWyyi5IANET-xuG3TuUUMMn6yvB4") 
 api_hash = os.environ.get("HASH", "a7d65ff251cb1c8cf51f3ca1b90b5a0a") 
 api_id = os.environ.get("ID", "25791738")
 
 # bot
 app = Client("my_bot", api_id=api_id, api_hash=api_hash, bot_token=bot_token)
+
 user_type_status = {}
-
-active_ai_chats = {}
-
-app = Client("my_bot", api_id=api_id, api_hash=api_hash, bot_token=bot_token)
-user_type_status = {}
-
-# اضافه کردن هندلرهای هوش مصنوعی
-telegram_app = Application.builder().token(bot_token).build()
-register_handlers(telegram_app)
-
-@app.on_message(filters.command("start"))
-def start(client_parametr, info_message_parametr):
-    chat_id_user_start = info_message_parametr.from_user.id
-    first_name = info_message_parametr.from_user.first_name
-    last_name = info_message_parametr.from_user.last_name
-
-    it_is_true_exists, chat_id, first_name, last_name, user_name, language_code = check_for_existence_in_the_database(chat_id_user_start)
-
-    if it_is_true_exists:
-        keyboards = create_keyboard(language_code,'welcome-send-text')
-        info_message_parametr.reply(languages[language_code]['welcome-send-text'], reply_markup=keyboards, reply_to_message_id=info_message_parametr.id)
-    else:
-        info_message_parametr.reply(languages['start-text'], reply_markup=keyboard_select_orders_or_tools, reply_to_message_id=info_message_parametr.id)
-
 
 @app.on_message(filters.command("start"))
 def start(client_parametr, info_message_parametr):
@@ -88,8 +59,8 @@ def handle_callback_query_for_select_language(client, callback_query):
         callback_query.edit_message_text(text=languages[language_code][f'{data}-text'], reply_markup=keyboards)
     
     if data == 'change-language':
-        keyboards = create_keyboard(language_code, f'{data}')
-        callback_query.edit_message_text(text=languages[language_code][f'{data}-text'], reply_markup=keyboards)
+    	keyboards = create_keyboard(language_code,f'{data}')
+    	callback_query.edit_message_text(text=languages[language_code][f'{data}-text'], reply_markup=keyboards)
         
     if data in ('fa-change','en-change'):
         result_change = data.split('-')[0]
@@ -98,119 +69,111 @@ def handle_callback_query_for_select_language(client, callback_query):
         
     if data == '2fa':
     	#unknown
-
-        keyboards = create_keyboard(language_code, f'{data}')
-        callback_query.edit_message_text(text=languages[language_code][f'{data}-text'], reply_markup=keyboards)
+    	keyboards = create_keyboard(language_code,f'{data}')
+    	callback_query.edit_message_text(text=languages[language_code][f'{data}-text'], reply_markup=keyboards)
         
     if data == 'clear-database':
         keyboards = create_keyboard(language_code,f'{data}')
-        callback_query.edit_message_text(text=languages[language_code][f'{data}-text'], reply_markup=keyboards) 
+        callback_query.edit_message_text(text=languages[language_code][f'{data}-text'], reply_markup=keyboards)
 
     if data == 'clear-database-yes':
-        #dell database
-        callback_query.edit_message_text(text=languages[language_code]['change-language-db-text-yes'])
-        time.sleep(2)
-        callback_query.edit_message_text(text=languages[language_code]['change-language-db-text-yes2'])
-        time.sleep(2)
-        callback_query.edit_message_text(text=languages[language_code]['change-language-db-text-yes3'])
-        time.sleep(2)
-        callback_query.edit_message_text(text=languages[language_code]['change-language-db-text-yes4'])
-        time.sleep(2)
-        callback_query.edit_message_text(text=languages[language_code]['change-language-db-text-yes5'])
-        time.sleep(1)
-        callback_query.edit_message_text(text=languages[language_code]['change-language-db-text-yes6'])
-        time.sleep(1)
-        callback_query.edit_message_text(text=languages[language_code]['change-language-db-text-yes7'])
+    	#dell database
+	    callback_query.edit_message_text(text=languages[language_code]['change-language-db-text-yes'])
+	    time.sleep(2)
+	    callback_query.edit_message_text(text=languages[language_code]['change-language-db-text-yes2'])
+	    time.sleep(2)
+	    callback_query.edit_message_text(text=languages[language_code]['change-language-db-text-yes3'])
+	    time.sleep(2)
+	    callback_query.edit_message_text(text=languages[language_code]['change-language-db-text-yes4'])
+	    time.sleep(2)
+	    callback_query.edit_message_text(text=languages[language_code]['change-language-db-text-yes5'])
+	    time.sleep(1)
+	    callback_query.edit_message_text(text=languages[language_code]['change-language-db-text-yes6'])
+	    time.sleep(1)
+	    callback_query.edit_message_text(text=languages[language_code]['change-language-db-text-yes7'])
         
         
     if data == 'clear-database-nope':
-        keyboards = create_keyboard(language_code, 'back-menu-for-else')
-        callback_query.edit_message_text(text=languages[language_code]['welcome-send-text'], reply_markup=keyboards)
+    	keyboards = create_keyboard(language_code,'back-menu-for-else')
+    	callback_query.edit_message_text(text=languages[language_code]['welcome-send-text'], reply_markup=keyboards)
         
     if data == 'account-upgrade':
-        keyboards = create_keyboard(language_code, f'{data}')
-        callback_query.edit_message_text(text=languages[language_code][f'{data}-text'], reply_markup=keyboards)   
+    	keyboards = create_keyboard(language_code,f'{data}')
+    	callback_query.edit_message_text(text=languages[language_code][f'{data}-text'], reply_markup=keyboards)     
     
     if data == 'active-by-user-password':
-        #send user name of the after password
+    	#send user name of the after password
 	    #clear text is tag script
 		#hashing password
-    
-        keyboards = create_keyboard(language_code,f'{data}')
-        callback_query.edit_message_text(text=languages[language_code][f'{data}-text'], reply_markup=keyboards)     
+    	keyboards = create_keyboard(language_code,f'{data}')
+    	callback_query.edit_message_text(text=languages[language_code][f'{data}-text'], reply_markup=keyboards)     
     
     if data == 'activate-with-email-and-password':
-        #send email of the after password
+    	#send email of the after password
     	#filter of emil in gmail
 	    #clear text is tag script
 	    #hashing password
-        state = user_type_status.get(chat_id_user_click_callback, None)
-        if state is None:
-            user_type_status[chat_id_user_click_callback] = "waiting_for_email"
-            callback_query.edit_message_text(text=languages[language_code]['a-written-text-for-requesting-to-send-an-email'])
-        
-        if data == 'activate-with-phone':
-         #send phone
-         #check code by iran
-         user_type_status[chat_id_user_click_callback] = "waiting_for_phone"
-        state = user_type_status.get(chat_id_user_click_callback, None)
-        #print(state)
-        keyboards = create_keyboard(language_code, f'{data}')
-        callback_query.edit_message_text(text=languages[language_code][f'{data}-text'], reply_markup=keyboards)
-        if state == "waiting_for_phone":
-            keyboards = create_keyboard(language_code, 'send-button-number')
-            callback_query.message.reply_text(languages[language_code]['xx'], reply_markup=keyboards)
-            #print(user_type_status)
-            #print(state)
+	    state = user_type_status.get(chat_id_user_click_callback, None)
+	    if state is None:
+	        user_type_status[chat_id_user_click_callback] = "waiting_for_email"
+	        #state = "waiting_for_email"
+	        callback_query.edit_message_text(text=languages[language_code]['a-written-text-for-requesting-to-send-an-email'])
+    
+    if data == 'activate-with-phone':
+    	#send phone
+	    #check code by iran
+	    user_type_status[chat_id_user_click_callback] = "waiting_for_phone"
+	    state = user_type_status.get(chat_id_user_click_callback, None)
+	    #print(state)
+	    keyboards = create_keyboard(language_code,f'{data}')
+	    callback_query.edit_message_text(text=languages[language_code][f'{data}-text'], reply_markup=keyboards)
+	    if state == "waiting_for_phone":
+	         keyboards = create_keyboard(language_code, 'send-button-number')
+	         callback_query.message.reply_text(languages[language_code]['xx'], reply_markup=keyboards)
+	         #print(user_type_status)
+	         #print(state)
 	         
-        if data == 'activate-with-phone-text-button-nope':
-        #del user_type_status[chat_id_user_click_callback]
+    if data == 'activate-with-phone-text-button-nope':
+    	#del user_type_status[chat_id_user_click_callback]
 	    #callback_query.answer("dell dell", show_alert=True)
-         user_type_status.pop(chat_id_user_click_callback, None)
-        remove_keyboard = ReplyKeyboardRemove()
-        callback_query.message.reply_text(languages[language_code]['deleted-keyboard-send-phone'], reply_markup=remove_keyboard)
-        keyboards = create_keyboard(language_code, 'account-upgrade')
-        callback_query.edit_message_text(languages[language_code]['account-upgrade-text'], reply_markup=keyboards)
+	    user_type_status.pop(chat_id_user_click_callback, None)
+	    remove_keyboard = ReplyKeyboardRemove()
+	    callback_query.message.reply_text(languages[language_code]['deleted-keyboard-send-phone'], reply_markup=remove_keyboard)
+	    keyboards = create_keyboard(language_code, 'account-upgrade')
+	    callback_query.edit_message_text(languages[language_code]['account-upgrade-text'], reply_markup=keyboards)
 	
 	
 	
     if data == 'account-status-guide':
     	#fetch one database status user if phone active
     	#text for status account user
-        keyboards = create_keyboard(language_code,f'{data}')
-        callback_query.edit_message_text(text=languages[language_code][f'{data}-text'], reply_markup=keyboards)
+    	keyboards = create_keyboard(language_code,f'{data}')
+    	callback_query.edit_message_text(text=languages[language_code][f'{data}-text'], reply_markup=keyboards)
         
     if data == 'recovery-account':
-        keyboards = create_keyboard(language_code,f'{data}')
-        callback_query.edit_message_text(text=languages[language_code][f'{data}-text'], reply_markup=keyboards)
-        #unknown
+    	#unknown
+    	keyboards = create_keyboard(language_code,f'{data}')
+    	callback_query.edit_message_text(text=languages[language_code][f'{data}-text'], reply_markup=keyboards)
         
     if data == 'invitation-to-friends':
     	#send text for link
 	    #create link zir
-        keyboards = create_keyboard(language_code,f'{data}')
-        callback_query.edit_message_text(text=languages[language_code][f'{data}-text'], reply_markup=keyboards)
+    	keyboards = create_keyboard(language_code,f'{data}')
+    	callback_query.edit_message_text(text=languages[language_code][f'{data}-text'], reply_markup=keyboards)
         
     if data == 'history-of-my-account':
-        #fetchall columns database is not data hidden
-        keyboards = create_keyboard(language_code,f'{data}')
-        callback_query.edit_message_text(text=languages[language_code][f'{data}-text'], reply_markup=keyboards)
-    	
+    	#fetchall columns database is not data hidden
+    	keyboards = create_keyboard(language_code,f'{data}')
+    	callback_query.edit_message_text(text=languages[language_code][f'{data}-text'], reply_markup=keyboards)
         
     if data == 'wallet-recharge':
-        keyboards = create_keyboard(language_code,f'{data}')
-        callback_query.edit_message_text(text=languages[language_code][f'{data}-text'], reply_markup=keyboards) 
     	#unknown
-    	
+    	keyboards = create_keyboard(language_code,f'{data}')
+    	callback_query.edit_message_text(text=languages[language_code][f'{data}-text'], reply_markup=keyboards)
 
     if data == 'back-home':
         keyboards = create_keyboard(language_code,f'{data}')
         callback_query.edit_message_text(text=languages[language_code]['welcome-send-text'], reply_markup=keyboards)
-
-    #ai
-    if data == 'artificial-intelligence':
-        keyboards = create_keyboard(language_code, 'artificial-intelligence')
-        callback_query.edit_message_text(text=languages[language_code]['ai-start'], reply_markup=keyboards)
         
         
 
@@ -308,11 +271,4 @@ def handle_contact(client, message):
 	message.reply_text(languages[language_code]['deleted-keyboard-send-phone'], reply_markup=remove_keyboard)
 
 
-async def main():
-    # راه‌اندازی تلگرام بات اصلی
-    app.start()
-    # راه‌اندازی تلگرام بات AI
-    await telegram_app.initialize()
-    await telegram_app.start()
-    await telegram_app.run_polling()
-    await app.stop()
+app.run()
