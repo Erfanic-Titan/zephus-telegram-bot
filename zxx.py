@@ -34,6 +34,7 @@ rename_state = {}
 
 @app.on_message(filters.command("start"))
 def start(client_parametr, info_message_parametr):
+    print("Received start command")
     chat_id_user_start = info_message_parametr.from_user.id
     first_name = info_message_parametr.from_user.first_name
     last_name = info_message_parametr.from_user.last_name
